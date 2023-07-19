@@ -1,0 +1,27 @@
+---
+- name: create a directory and config link
+  hosts: dev
+  tasks:
+    - name: Crete and directory
+      ansible.builtin.file:
+        path: /devweb
+        state: directory
+        group: devops
+        mode: u=rwx,g=rwx,u=rx,g+s
+        setype: httpd_sys_content_t
+
+    - name: create a file
+      ansible.builtin.file:
+        path: /devweb/index.html
+        state: touch
+
+    - name: copy the content
+      ansible.builtin.copy:
+        content: "Development\n"
+        dest: /devweb/index.html
+
+    - name: Link a directory
+      ansible.builtin.file:
+        src: /devweb
+        dest: /var/www/html/devweb
+        state: link

@@ -1,0 +1,5 @@
+---
+- name: Appache Deploy
+  hosts: dev
+  roles:
+    - apache

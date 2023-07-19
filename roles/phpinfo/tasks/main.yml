@@ -1,0 +1,11 @@
+---
+# tasks file for phpinfo
+  - name: php installation and configuration
+    yum:
+       name: php
+       state: present
+  - name: adding content
+    template:
+       src: index.j2
+       dest: /var/www/html/index.php
+

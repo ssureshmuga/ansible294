@@ -1,0 +1,16 @@
+---
+# tasks file for loadbalancer
+  - name: haproxy installation
+    yum:
+       name: haproxy
+       state: present
+  - name: haproxy service start
+    service:
+       name: haproxy
+       state: started
+       enabled: yes
+  - name: configure haproxy
+    template:
+       src: haproxy.cfg.j2
+       dest: /etc/haproxy/haproxy.cfg
+    notify: haproxy service restart

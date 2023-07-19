@@ -1,0 +1,5 @@
+---
+- src: file:////home/student/ansible/balancer.tar.gz
+  name: balancer
+- src: file:////home/student/ansible/phpinfo.tar.gz
+  name: phpinfo 

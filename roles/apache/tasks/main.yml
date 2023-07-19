@@ -1,0 +1,32 @@
+---
+# tasks file for roles/apache
+- name: Installa httpd package
+  ansible.builtin.dnf:
+    name: 
+      - httpd
+      - firewalld
+    state: present
+
+- name: Start the httpd services
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Start the firealld service
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: yes
+    
+- name: Add httpd service in firewall role
+  ansible.posix.firewalld:
+    service: http
+    state: enabled
+    permanent: yes
+    immediate: yes
+
+- name: Copy the content from template.j2
+  ansible.builtin.template:
+    src: template.j2
+    dest: /var/www/html/index.html

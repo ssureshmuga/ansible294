@@ -1,0 +1,7 @@
+---
+- name: configure SELinux in enforcing mode
+  hosts: all
+  vars:
+    selinux_state: enforcing
+  roles:
+    - selinux

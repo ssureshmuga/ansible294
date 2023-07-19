@@ -1,0 +1,5 @@
+---
+# vars file for loadbalancer
+#
+ loadbalancer_port: 8080
+

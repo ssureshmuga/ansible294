@@ -1,0 +1,18 @@
+---
+  - users:
+      - name: user1
+        job: manager
+        uid: 1006
+        password_expire_days: 25
+      - name: user2
+        job: manager
+        uid: 1007
+        password_expire_days: 25
+      - name: user3
+        job: developer
+        uid: 1008
+        password_expire_days: 25
+      - name: user4
+        job: developer
+        uid: 1009
+        password_expire_days: 25

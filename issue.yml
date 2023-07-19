@@ -1,0 +1,23 @@
+---
+- name: play for replace the module
+  hosts: all
+  tasks:
+
+    - name: replace the content on dev group
+      ansible.builtin.copy:
+        content: Development
+        dest: /etc/issue
+      when: inventory_hostname in groups['dev']
+
+    - name: replace the content on test group
+      ansible.builtin.copy:
+        content: Test
+        dest: /etc/issue
+      when: inventory_hostname in groups['test']
+
+    - name: replace the content on prod group
+      ansible.builtin.copy:
+        content: Production
+        dest: /etc/issue
+      when: inventory_hostname in groups['prod']
+
