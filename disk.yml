@@ -1,0 +1,36 @@
+---
+- name: creating disk
+  hosts: all
+  ignore_errors: yes
+  tasks:
+
+    - name: disk info check
+      ansible.builtin.command: 'lsblk /dev/vdb'
+      register: diskinfo
+    - ansible.builtin.debug:
+        msg: "disk not found"
+      when: diskinfo is failed
+
+    - name: Creating Disk in 1.5GiB
+      community.general.parted:
+        device: /dev/vdb
+        number: 1
+        state: present
+        part_end: 1.5GiB
+      when: diskinfo is success
+      register: disk1
+    - ansible.builtin.debug:
+        msg: "insufficient size of disk"
+      when: disk1 is failed
+
+    - name: creating disk in 800MB 
+      community.general.parted:
+        device: /dev/vdb
+        number: 1
+        state: present
+        part_end: 800MiB
+      when: disk1 is failed
+
+    - name: assign filesystem to ext3
+      ansible.builtin.command: 'mkfs.ext3 /dev/vdb1'
+

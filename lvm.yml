@@ -1,0 +1,28 @@
+---
+- name: creating LVM storage
+  hosts: all
+  ignore_errors: yes
+  tasks:
+
+    - name: check the volume group is present
+      ansible.builtin.command: 'vgdisplay research'
+      register: vginfo
+    - ansible.builtin.debug:
+        msg: "vg not found"
+      when: vginfo is failed
+
+    - name: Creating LVM in 800MB
+      ansible.builtin.command: 'lvcreate -n data -L 800M /dev/research'
+      when: vginfo is success
+      register: lv1
+    - ansible.builtin.debug:
+        msg: "insufficient size of vg"
+      when: lv1 is failed
+
+    - name: creating LVM in 500MB
+      ansible.builtin.command: 'lvcreate -n data -L 500M /dev/research'
+      when: lvm is failed
+
+    - name: assign filesystem to ext3
+      ansible.builtin.command: 'mkfs.ext3 /dev/research/data'
+
