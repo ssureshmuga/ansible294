@@ -7,7 +7,7 @@
         path: /devweb
         state: directory
         group: devops
-        mode: u=rwx,g=rwx,u=rx,g+s
+        mode: u=rwx,g=rwx,u=ox,g+s
         setype: httpd_sys_content_t
 
     - name: create a file
